@@ -7,7 +7,7 @@
 <!-- badges: end -->
 
 Some survey participants tend to respond carelessly which complicates
-data analysis. This package provides functions that make it easier to
+data analysis. This R package provides functions that make it easier to
 explore responses and identify those that may be problematic. This
 package implements two approaches to the problem of careless responses
 detection:  
@@ -68,25 +68,22 @@ file.
 
 The rationale for response pattern analysis is described in:
 
-> Gottfried, J., Jezek, S., & Kralova, M. (2021). *Autocorrelation
-> screening: A potentially efficient method for detecting repetitive
-> response patterns in questionnaire data.* Manuscript submitted for
-> review.
+> Gottfried, J., Jezek, S., Kralova, M., & Rihacek, T. (2022).
+> Autocorrelation screening: A potentially efficient method for
+> detecting repetitive response patterns in questionnaire data.
+> *Practical Assessment, Research, and Evaluation, 27*, Article 2.
+> <https://doi.org/10.7275/vyxb-gt24>
 
 ## Installation
 
-<!--
-You can install the released version of responsePatterns from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of responsePatterns from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("responsePatterns")
 ```
 
 And the development version from [GitHub](https://github.com/) with:
--->
-
-You can install the development version from
-[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -105,7 +102,7 @@ the potentially problematic patterns.
 
 ``` r
 library(responsePatterns)
-#> This is responsePatterns 0.1.0. Note: this is BETA software! Please mind that the package may not be stable and report any bugs! For questions and issues, please see github.com/trihacek/responsePatterns.
+#> This is responsePatterns 0.1.1. Note: this is BETA software! Please mind that the package may not be stable and report any bugs! For questions and issues, please see github.com/trihacek/responsePatterns.
 # Use auto-correlation screening to find patterns in the data
 rp1 <- rp.acors(rp.simdata, max.lag = 5, id.var = "optional_ID")
 # Alternatively, use an iterative mechanistic method for pattern detection
@@ -159,6 +156,7 @@ head(indices)
 Or export them into a CVS file for further processing.
 
 ``` r
+
 # Export indices into a CVS file
 rp.save2csv(rp1)
 
@@ -208,7 +206,7 @@ We do not recommend entering all data in a single analysis, since
 different questionnaires may use different rating scales and
 participants may change their style of responding. Instead, we recommend
 analyzing each questionnaire separately and then collate the results. To
-make this example easy, let imagine that the **`rp.simdata`** data set
+make this example easy, let’s imagine that the **`rp.simdata`** data set
 consists of data collected via four 5-item questionnaires.
 
 ``` r
@@ -229,8 +227,8 @@ percentiles <- as.data.frame(cbind(rp.simdata$optional_ID, rp.indices(rp.a)$perc
 percentile.cutoff <- 80
 percentiles$sum <- rowSums(percentiles > percentile.cutoff)
 
-# Decide on how many times a respondent muset be placed above the percentile
-# cutoff score should be considered problematic. Then, select potentially
+# Decide on how many times a respondent must be placed above the percentile
+# cutoff score to be considered problematic. Then, select potentially
 # problematic responses
 sum.cutoff <- 2
 IDs <- percentiles[percentiles$sum >= sum.cutoff, 1]
